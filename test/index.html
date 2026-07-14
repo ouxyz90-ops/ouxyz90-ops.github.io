@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Manipulation-Proof Are You? — Dark Mind</title>
+<meta name="description" content="10 realistic scenarios. 2 minutes. Find out how manipulation-proof you really are, then share your score.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='44' ry='26' fill='none' stroke='%23EDE8F5' stroke-width='7'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%237B2FBE'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%230B0512'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#0B0512; --deep:#2A1245; --violet:#7B2FBE; --orchid:#C264FF;
+  --bone:#EDE8F5; --mist:#9A8FB8; --card:#150B24; --line:#2C1B47;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--ink);
+  background-image:radial-gradient(ellipse 90% 55% at 50% -10%, var(--deep), transparent 70%);
+  color:var(--bone);
+  font-family:Bahnschrift,'DIN Alternate','Segoe UI',system-ui,sans-serif;
+  min-height:100vh; display:flex; flex-direction:column; align-items:center;
+  padding:32px 20px 40px;
+}
+.wrap{width:100%;max-width:480px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:8px;width:fit-content}
+.brand .eye-mini{width:26px;height:26px;flex-shrink:0}
+.brand .brand-name{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mist)}
+.brand:hover .brand-name{color:var(--orchid)}
+
+.progressbar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin:18px 0 26px}
+.progressbar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--violet),var(--orchid));transition:width .35s ease}
+.progress-label{color:var(--mist);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+
+.screen{animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+header.intro{text-align:center;margin:20px 0 8px}
+.eye{width:84px;height:84px;margin:0 auto 20px;display:block}
+h1{font-size:1.55rem;font-weight:600;letter-spacing:.06em;line-height:1.3}
+.tag{color:var(--mist);font-size:.95rem;margin-top:12px;font-weight:300;letter-spacing:.02em;line-height:1.5}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:16px 20px;margin-top:26px;
+  background:linear-gradient(135deg,var(--violet),#5C1F92);
+  border:1px solid var(--violet);border-radius:14px;
+  color:var(--bone);font-family:inherit;font-size:1rem;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;cursor:pointer;transition:transform .18s ease,border-color .18s ease;
+}
+.btn:hover{transform:translateY(-2px);border-color:var(--orchid)}
+.btn:focus-visible{outline:2px solid var(--orchid);outline-offset:3px}
+.btn-ghost{
+  background:transparent;border:1px solid var(--line);color:var(--bone);
+}
+.btn-ghost:hover{border-color:var(--orchid)}
+
+.scenario-card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 20px;margin-bottom:16px;
+}
+.scenario-num{color:var(--orchid);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.scenario-text{font-size:1.08rem;line-height:1.5;font-weight:500}
+
+.options{list-style:none;display:flex;flex-direction:column;gap:10px}
+.option-btn{
+  display:block;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px 16px;color:var(--bone);font-family:inherit;font-size:.92rem;line-height:1.4;font-weight:300;
+  cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease;
+}
+.option-btn:hover:not(:disabled){border-color:var(--orchid);transform:translateY(-1px)}
+.option-btn:focus-visible{outline:2px solid var(--orchid);outline-offset:2px}
+.option-btn:disabled{cursor:default}
+.option-btn.selected{border-color:var(--orchid);background:linear-gradient(135deg,#241338,var(--card))}
+.option-btn.selected::before{content:"→ ";color:var(--orchid);font-weight:700}
+.option-btn:disabled:not(.selected){opacity:.45}
+
+.explain-box{
+  margin-top:16px;background:var(--card);border:1px solid var(--violet);border-left:4px solid var(--orchid);
+  border-radius:10px;padding:14px 16px;font-size:.88rem;line-height:1.5;color:var(--bone);font-weight:300;
+}
+.explain-box b{color:var(--orchid);font-weight:600}
+
+.result-header{text-align:center;margin-bottom:10px}
+.result-eyebrow{color:var(--mist);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase}
+.score-big{font-size:3.6rem;font-weight:700;line-height:1;margin:14px 0 4px;
+  background:linear-gradient(135deg,var(--orchid),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.score-of{color:var(--mist);font-size:.95rem;margin-bottom:14px}
+.tier-name{font-size:1.5rem;font-weight:700;letter-spacing:.03em;color:var(--orchid);text-align:center}
+.tier-desc{color:var(--bone);font-size:.92rem;line-height:1.6;text-align:center;margin:12px 0 6px;font-weight:300}
+
+.card-preview-wrap{display:flex;justify-content:center;margin:22px 0}
+.card-preview{width:220px;border-radius:14px;border:1px solid var(--line);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+
+.share-actions{display:flex;gap:10px;margin-top:6px}
+.share-actions .btn{margin-top:0}
+
+.group{color:var(--mist);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  margin:32px 4px 12px;display:flex;align-items:center;gap:12px}
+.group::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;margin-bottom:12px;text-decoration:none;color:inherit;
+  transition:transform .18s ease,border-color .18s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:var(--accent,var(--violet))}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--accent,var(--violet));flex-shrink:0;
+  box-shadow:0 0 12px var(--accent,var(--violet))}
+.meta{flex:1;min-width:0}
+.name{font-weight:600;font-size:1.02rem;letter-spacing:.02em}
+.desc{color:var(--mist);font-size:.83rem;margin-top:3px;font-weight:300}
+.go{color:var(--mist);font-size:1.1rem;transition:color .18s,transform .18s}
+.card:hover .go{color:var(--accent,var(--orchid));transform:translateX(3px)}
+.card.featured{border:1px solid var(--violet);background:linear-gradient(135deg,#1B0F30,#150B24)}
+.card.featured .name{color:var(--orchid)}
+
+.email-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px}
+.email-box input{
+  width:100%;padding:12px 14px;margin-top:10px;background:var(--ink);border:1px solid var(--line);
+  border-radius:10px;color:var(--bone);font-family:inherit;font-size:.9rem;
+}
+.email-box input:focus-visible{outline:2px solid var(--orchid)}
+
+footer{color:#5E5477;font-size:.72rem;margin-top:34px;text-align:center;letter-spacing:.06em}
+.retake-link{display:block;text-align:center;color:var(--mist);font-size:.82rem;margin-top:22px;text-decoration:underline;
+  background:none;border:none;font-family:inherit;cursor:pointer;width:100%;padding:8px}
+.retake-link:hover{color:var(--orchid)}
+.retake-link:focus-visible{outline:2px solid var(--orchid)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.hidden{display:none}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand" href="../">
+    <svg class="eye-mini" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gm)" stroke-width="3"/>
+      <ellipse cx="50" cy="50" rx="32" ry="18.5" fill="none" stroke="#EDE8F5" stroke-width="6"/>
+      <circle cx="50" cy="50" r="10.5" fill="url(#gm)"/>
+      <circle cx="50" cy="50" r="4.6" fill="#0B0512"/>
+      <defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#C264FF"/><stop offset="1" stop-color="#7B2FBE"/>
+      </linearGradient></defs>
+    </svg>
+    <span class="brand-name">Dark Mind</span>
+  </a>
+
+  <div id="progress-wrap" class="hidden" aria-hidden="true">
+    <p class="progress-label" id="progress-label">Question 1 of 10</p>
+    <div class="progressbar"><div class="progressbar-fill" id="progress-fill"></div></div>
+  </div>
+
+  <main id="app" aria-live="polite"></main>
+
+  <footer>© 2026 Dark Mind · Not a clinical assessment</footer>
+</div>
+
+<canvas id="share-canvas" width="1080" height="1920" class="visually-hidden" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- config -------------------------------------------------------
+  var EMAIL_ENDPOINT = ""; // set a URL later to enable the MailerLite capture block
+  var SITE_LABEL = "ouxyz90-ops.github.io/test";
+
+  // ---- quiz data ------------------------------------------------------
+  var QUESTIONS = [
+    {
+      title: "The apology that backfires",
+      scenario: "They apologize, but somehow you end up apologizing back. What just happened?",
+      options: [
+        { text: "That's just how heated arguments go — everyone ends up saying sorry eventually.", score: 0 },
+        { text: "They flipped the script — accused you of overreacting until you felt guilty for being hurt.", score: 2 },
+        { text: "You probably misread the situation, so apologizing felt fair.", score: 1 }
+      ],
+      explain: "That was <b>DARVO</b> — deny, attack, reverse victim and offender. They turned their apology into your fault."
+    },
+    {
+      title: "Too much, too fast",
+      scenario: "Three days into talking, they're calling it fate, planning trips, saying no one has ever understood them like you do. How do you read it?",
+      options: [
+        { text: "Nice, but I'd wait a few more weeks before getting too invested.", score: 1 },
+        { text: "Flattering, but intensity this fast is a flag — watch if it's consistent over months, not days.", score: 2 },
+        { text: "Finally, someone who really gets me — this is what real connection feels like.", score: 0 }
+      ],
+      explain: "That's <b>love bombing</b> — overwhelming affection early to fast-track your trust and lower your guard."
+    },
+    {
+      title: "The silent sigh",
+      scenario: "You say you can't make it this weekend. They go quiet, then: “It's fine. I guess I'll just deal with it alone. Again.” What's the move?",
+      options: [
+        { text: "Name it calmly — “sounds like you want me to feel guilty, but my answer's still no” — and hold the line.", score: 2 },
+        { text: "Cancel your plans — you don't want them to feel abandoned.", score: 0 },
+        { text: "Feel bad about it, but stick to your plans anyway.", score: 1 }
+      ],
+      explain: "That was a <b>guilt trip</b> — implied suffering used to make a normal boundary feel like an attack."
+    },
+    {
+      title: "One more condition",
+      scenario: "You finally hit the condition they set for trusting you again. Now there's a new one. And after that, probably another. What's going on?",
+      options: [
+        { text: "Maybe you just need to try a little harder to earn it back.", score: 1 },
+        { text: "That's fair — trust takes time to rebuild in steps.", score: 0 },
+        { text: "The goal was never really the goal — no amount of proving yourself will end this.", score: 2 }
+      ],
+      explain: "That's <b>moving the goalposts</b> — conditions keep shifting so you're always falling short, never free."
+    },
+    {
+      title: "Bringing in backup",
+      scenario: "Mid-argument, they mention how their ex “never had a problem with this,” or how a mutual friend “agrees with them.” Why bring in a third party?",
+      options: [
+        { text: "They're just being honest and giving useful context.", score: 0 },
+        { text: "Maybe it's a fair outside perspective worth considering.", score: 1 },
+        { text: "It's a control move — using someone else's opinion to make you doubt your own side.", score: 2 }
+      ],
+      explain: "That's <b>triangulation</b> — pulling in a third party to validate their position and isolate yours."
+    },
+    {
+      title: "“That never happened”",
+      scenario: "You bring up something hurtful they said last week. They insist it never happened, and now you're the one who sounds unstable for “making things up.” What's happening?",
+      options: [
+        { text: "Classic move — denying reality until you doubt your own memory.", score: 2 },
+        { text: "Maybe my memory really is a little fuzzy on this one.", score: 1 },
+        { text: "I probably misunderstood what they meant at the time.", score: 0 }
+      ],
+      explain: "That's <b>gaslighting</b> — rewriting reality until you can't trust your own perception."
+    },
+    {
+      title: "Why can't I just leave",
+      scenario: "You want to end things, but you keep thinking: they'll fall apart without me, I owe them after everything, what if I'm the bad guy here? What's holding you in place?",
+      options: [
+        { text: "Some genuine responsibility worth weighing before deciding.", score: 1 },
+        { text: "A tangle they've cultivated on purpose — not real reasons to stay.", score: 2 },
+        { text: "Solid reasons — leaving now really would make me the bad guy.", score: 0 }
+      ],
+      explain: "That's <b>FOG</b> — fear, obligation, and guilt used to keep you trapped in a relationship."
+    },
+    {
+      title: "The random text",
+      scenario: "Weeks of silence, then a single “thinking of you” text just often enough to keep you hoping. What are they doing?",
+      options: [
+        { text: "They're clearly still into me, or they wouldn't bother texting at all.", score: 0 },
+        { text: "The bare minimum contact to keep you on the hook without ever committing.", score: 2 },
+        { text: "Maybe they're just busy and still interested underneath it.", score: 1 }
+      ],
+      explain: "That's <b>breadcrumbing</b> — just enough attention to stop you walking away, never enough to build something real."
+    },
+    {
+      title: "Gone quiet",
+      scenario: "After a disagreement, they stop responding entirely — no explanation, just silence that stretches for days. What's the goal?",
+      options: [
+        { text: "A punishment and pressure tactic — starving you of contact until you cave and chase them.", score: 2 },
+        { text: "They probably just need some space to cool off.", score: 1 },
+        { text: "I must have really messed up if they're this upset with me.", score: 0 }
+      ],
+      explain: "That's the <b>silent treatment</b> — weaponized withdrawal used to punish and regain control."
+    },
+    {
+      title: "Someday, not today",
+      scenario: "They talk about moving in together, meeting your family, a future five years out — but the small promises for next week keep falling through. What's the pattern?",
+      options: [
+        { text: "They're a big-picture person who's just genuinely bad with details.", score: 1 },
+        { text: "Someone talking about the future that seriously must mean it.", score: 0 },
+        { text: "Big promises that cost nothing now, keeping you invested while nothing actually happens.", score: 2 }
+      ],
+      explain: "That's <b>future faking</b> — dangling a big future to keep you committed while dodging real, near-term follow-through."
+    }
+  ];
+
+  var TIERS = [
+    { min: 0, max: 7, name: "Open Target",
+      desc: "You take most of these tactics at face value, which is exactly what manipulators count on. Start naming the pattern out loud the moment it happens — recognition is the first real defense." },
+    { min: 8, max: 12, name: "Aware But Vulnerable",
+      desc: "You sense when something's off, but you still talk yourself out of it under pressure. Learn the labels for these tactics so you can act on the feeling faster, not just notice it later." },
+    { min: 13, max: 16, name: "Sharp Eye",
+      desc: "You catch most manipulation tactics close to real time and rarely internalize the blame. Now practice calm, boundary-first responses instead of just quietly recognizing what's happening." },
+    { min: 17, max: 20, name: "Grey Rock Master",
+      desc: "You spot these tactics almost instantly and refuse to feed the reaction they're fishing for. Very few people get to run the same play on you twice." }
+  ];
+
+  // ---- state ----------------------------------------------------------
+  var state = { index: 0, score: 0, answered: false };
+
+  var app = document.getElementById("app");
+  var progressWrap = document.getElementById("progress-wrap");
+  var progressFill = document.getElementById("progress-fill");
+  var progressLabel = document.getElementById("progress-label");
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c];
+    });
+  }
+
+  // ---- screens ----------------------------------------------------------
+  function showIntro(){
+    progressWrap.classList.add("hidden");
+    app.innerHTML =
+      '<div class="screen">' +
+      '<header class="intro">' +
+      '<svg class="eye" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle cx="50" cy="50" r="46" fill="none" stroke="url(#g1)" stroke-width="2.5"/>' +
+      '<ellipse cx="50" cy="50" rx="32" ry="18.5" fill="none" stroke="#EDE8F5" stroke-width="5"/>' +
+      '<circle cx="50" cy="50" r="10.5" fill="url(#g1)"/>' +
+      '<circle cx="50" cy="50" r="4.6" fill="#0B0512"/>' +
+      '<circle cx="47.4" cy="47.2" r="1.7" fill="#EDE8F5"/>' +
+      '<defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0" stop-color="#C264FF"/><stop offset="1" stop-color="#7B2FBE"/>' +
+      '</linearGradient></defs>' +
+      '</svg>' +
+      '<h1>How Manipulation-Proof Are You?</h1>' +
+      '<p class="tag">10 scenarios. 2 minutes. Most people score under 6.</p>' +
+      '</header>' +
+      '<button type="button" class="btn" id="start-btn">Start the test</button>' +
+      '</div>';
+    document.getElementById("start-btn").addEventListener("click", startQuiz);
+  }
+
+  function startQuiz(){
+    state = { index: 0, score: 0, answered: false };
+    progressWrap.classList.remove("hidden");
+    showQuestion();
+  }
+
+  function showQuestion(){
+    state.answered = false;
+    var i = state.index;
+    var q = QUESTIONS[i];
+    var pct = Math.round((i / QUESTIONS.length) * 100);
+    progressFill.style.width = pct + "%";
+    progressLabel.textContent = "Question " + (i + 1) + " of " + QUESTIONS.length;
+
+    var optionsHtml = q.options.map(function(opt, idx){
+      return '<li><button type="button" class="option-btn" data-idx="' + idx + '">' +
+        escapeHtml(opt.text) + '</button></li>';
+    }).join("");
+
+    app.innerHTML =
+      '<div class="screen">' +
+      '<div class="scenario-card">' +
+      '<p class="scenario-num">Scenario ' + (i + 1) + '</p>' +
+      '<p class="scenario-text">' + escapeHtml(q.scenario) + '</p>' +
+      '</div>' +
+      '<ul class="options" id="options-list" role="group" aria-label="Answer choices"></ul>' +
+      '<div id="explain-slot"></div>' +
+      '</div>';
+
+    document.getElementById("options-list").innerHTML = optionsHtml;
+    var buttons = app.querySelectorAll(".option-btn");
+    buttons.forEach(function(btn){
+      btn.addEventListener("click", function(){ selectOption(btn, q); });
+    });
+  }
+
+  function selectOption(btn, q){
+    if (state.answered) return;
+    state.answered = true;
+    var idx = parseInt(btn.getAttribute("data-idx"), 10);
+    var chosen = q.options[idx];
+    state.score += chosen.score;
+
+    var buttons = app.querySelectorAll(".option-btn");
+    buttons.forEach(function(b){
+      b.disabled = true;
+      if (b === btn) b.classList.add("selected");
+    });
+
+    var isLast = state.index === QUESTIONS.length - 1;
+    var slot = document.getElementById("explain-slot");
+    slot.innerHTML =
+      '<div class="explain-box">' + q.explain + '</div>' +
+      '<button type="button" class="btn" id="next-btn">' + (isLast ? "See your results" : "Next scenario") + '</button>';
+    document.getElementById("next-btn").addEventListener("click", function(){
+      if (isLast) { showResult(); } else { state.index++; showQuestion(); }
+    });
+    document.getElementById("next-btn").focus();
+  }
+
+  function getTier(score){
+    for (var t = 0; t < TIERS.length; t++){
+      if (score >= TIERS[t].min && score <= TIERS[t].max) return TIERS[t];
+    }
+    return TIERS[0];
+  }
+
+  function showResult(){
+    progressWrap.classList.add("hidden");
+    var score = state.score;
+    var tier = getTier(score);
+
+    var emailBlock = "";
+    if (EMAIL_ENDPOINT) {
+      emailBlock =
+        '<div class="email-box">' +
+        '<div class="name">Get weekly manipulation-spotting drills</div>' +
+        '<div class="desc">One short email a week. No spam, unsubscribe anytime.</div>' +
+        '<form id="email-form">' +
+        '<label class="visually-hidden" for="email-input">Email address</label>' +
+        '<input type="email" id="email-input" name="email" placeholder="you@email.com" required>' +
+        '<button type="submit" class="btn">Send me the drills</button>' +
+        '</form>' +
+        '</div>';
+    }
+
+    app.innerHTML =
+      '<div class="screen">' +
+      '<div class="result-header">' +
+      '<p class="result-eyebrow">Your result</p>' +
+      '<div class="score-big">' + score + '</div>' +
+      '<p class="score-of">out of ' + QUESTIONS.length * 2 + ' points</p>' +
+      '<div class="tier-name">' + escapeHtml(tier.name) + '</div>' +
+      '<p class="tier-desc">' + escapeHtml(tier.desc) + '</p>' +
+      '</div>' +
+      '<div class="card-preview-wrap"><img class="card-preview" id="card-preview" alt="Shareable result card: score ' + score + ' out of ' + (QUESTIONS.length * 2) + ', ' + escapeHtml(tier.name) + '"></div>' +
+      '<div class="share-actions">' +
+      '<a class="btn" id="download-btn" download="manipulation-proof-score.png">Download result card</a>' +
+      '<button type="button" class="btn btn-ghost" id="share-btn" style="display:none">Share</button>' +
+      '</div>' +
+      emailBlock +
+      '<p class="group">Keep learning</p>' +
+      '<a class="card featured" href="https://www.instagram.com/likennyypsych/">' +
+      '<span class="dot" style="--accent:#C264FF"></span>' +
+      '<span class="meta"><span class="name">Follow @likennyypsych</span><br>' +
+      '<span class="desc">Daily tactics, breakdowns, and real examples.</span></span>' +
+      '<span class="go">→</span></a>' +
+      '<a class="card" style="--accent:#8B3DFF" href="https://www.youtube.com/@darkmind8790">' +
+      '<span class="dot"></span>' +
+      '<span class="meta"><span class="name">Watch on YouTube</span><br>' +
+      '<span class="desc">Spot manipulation before it works on you.</span></span>' +
+      '<span class="go">→</span></a>' +
+      '<a class="card" href="../">' +
+      '<span class="dot" style="--accent:#9A8FB8"></span>' +
+      '<span class="meta"><span class="name">All channels</span><br>' +
+      '<span class="desc">Stories, true crime, history and more.</span></span>' +
+      '<span class="go">→</span></a>' +
+      '<button type="button" class="retake-link" id="retake-btn">Retake the test</button>' +
+      '</div>';
+
+    document.getElementById("retake-btn").addEventListener("click", startQuiz);
+    if (EMAIL_ENDPOINT) {
+      var form = document.getElementById("email-form");
+      if (form) form.addEventListener("submit", function(e){
+        e.preventDefault();
+        var email = document.getElementById("email-input").value;
+        fetch(EMAIL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, score: score, tier: tier.name })
+        }).catch(function(){});
+        form.innerHTML = '<div class="desc">Thanks — check your inbox soon.</div>';
+      });
+    }
+
+    buildShareCard(score, tier);
+  }
+
+  // ---- shareable canvas card --------------------------------------------
+  function drawEye(ctx, cx, cy, r){
+    var grad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+    grad.addColorStop(0, "#C264FF");
+    grad.addColorStop(1, "#7B2FBE");
+
+    ctx.save();
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = r * 0.054;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.92, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#EDE8F5";
+    ctx.lineWidth = r * 0.108;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, r * 0.64, r * 0.37, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.21, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#0B0512";
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.092, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#EDE8F5";
+    ctx.beginPath();
+    ctx.arc(cx - r * 0.052, cy - r * 0.056, r * 0.034, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight, align){
+    var words = text.split(" ");
+    var line = "";
+    var lines = [];
+    for (var n = 0; n < words.length; n++){
+      var test = line + words[n] + " ";
+      if (ctx.measureText(test).width > maxWidth && n > 0){
+        lines.push(line.trim());
+        line = words[n] + " ";
+      } else {
+        line = test;
+      }
+    }
+    lines.push(line.trim());
+    lines.forEach(function(l, idx){
+      ctx.fillText(l, x, y + idx * lineHeight, maxWidth, align);
+    });
+    return lines.length;
+  }
+
+  function buildShareCard(score, tier){
+    var canvas = document.getElementById("share-canvas");
+    var ctx = canvas.getContext("2d");
+    var W = canvas.width, H = canvas.height;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#0B0512";
+    ctx.fillRect(0, 0, W, H);
+
+    var glow = ctx.createRadialGradient(W / 2, H * 0.12, 40, W / 2, H * 0.12, W * 0.75);
+    glow.addColorStop(0, "#2A1245");
+    glow.addColorStop(1, "rgba(11,5,18,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = "#2C1B47";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(28, 28, W - 56, H - 56);
+
+    drawEye(ctx, W / 2, 300, 130);
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#9A8FB8";
+    ctx.font = "600 32px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.textBaseline = "alphabetic";
+    ctx.save();
+    ctx.letterSpacing = "6px";
+    ctx.fillText("MANIPULATION-PROOF SCORE", W / 2, 500);
+    ctx.restore();
+
+    ctx.fillStyle = "#C264FF";
+    ctx.font = "700 320px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText(String(score), W / 2, 900);
+
+    ctx.fillStyle = "#9A8FB8";
+    ctx.font = "400 38px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText("out of " + (QUESTIONS.length * 2), W / 2, 970);
+
+    ctx.fillStyle = "#EDE8F5";
+    ctx.font = "700 68px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText(tier.name, W / 2, 1090);
+
+    ctx.fillStyle = "#EDE8F5";
+    ctx.font = "300 34px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.textAlign = "center";
+    var descCtx = ctx;
+    descCtx.textAlign = "left";
+    var maxW = W - 220;
+    wrapText(descCtx, tier.desc, 110, 1190, maxW, 50, "left");
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#5E5477";
+    ctx.font = "400 30px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText("Take the test yourself", W / 2, H - 160);
+    ctx.fillStyle = "#C264FF";
+    ctx.font = "600 36px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText(SITE_LABEL, W / 2, H - 105);
+
+    ctx.fillStyle = "#9A8FB8";
+    ctx.font = "600 30px Bahnschrift, 'Segoe UI', sans-serif";
+    ctx.fillText("@likennyypsych — DARK MIND", W / 2, H - 55);
+
+    var dataUrl = canvas.toDataURL("image/png");
+    var img = document.getElementById("card-preview");
+    if (img) img.src = dataUrl;
+    var downloadBtn = document.getElementById("download-btn");
+    if (downloadBtn) downloadBtn.href = dataUrl;
+
+    var shareBtn = document.getElementById("share-btn");
+    if (shareBtn && navigator.share) {
+      shareBtn.style.display = "";
+      shareBtn.addEventListener("click", function(){
+        canvas.toBlob(function(blob){
+          if (!blob) return;
+          var file = new File([blob], "manipulation-proof-score.png", { type: "image/png" });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: "How Manipulation-Proof Are You?",
+              text: "I scored " + score + "/" + (QUESTIONS.length * 2) + " — " + tier.name + ". Take the test:"
+            }).catch(function(){});
+          } else {
+            navigator.share({
+              title: "How Manipulation-Proof Are You?",
+              text: "I scored " + score + "/" + (QUESTIONS.length * 2) + " — " + tier.name + ". Take the test:"
+            }).catch(function(){});
+          }
+        }, "image/png");
+      });
+    }
+  }
+
+  // ---- boot ----------------------------------------------------------
+  showIntro();
+})();
+</script>
+</body>
+</html>
