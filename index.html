@@ -1,3 +1,150 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>OuzKaan</title></head>
-<body><h1>OuzKaan</h1></body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Network — daily shorts for curious minds</title>
+<meta name="description" content="Eight channels. One feed of dark psychology, true crime, history and stories worth losing sleep over.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='44' ry='26' fill='none' stroke='%23EDE8F5' stroke-width='7'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%237B2FBE'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%230B0512'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#0B0512; --deep:#2A1245; --violet:#7B2FBE; --orchid:#C264FF;
+  --bone:#EDE8F5; --mist:#9A8FB8; --card:#150B24; --line:#2C1B47;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--ink);
+  background-image:radial-gradient(ellipse 90% 55% at 50% -10%, var(--deep), transparent 70%);
+  color:var(--bone);
+  font-family:Bahnschrift,'DIN Alternate','Segoe UI',system-ui,sans-serif;
+  min-height:100vh; display:flex; flex-direction:column; align-items:center;
+  padding:48px 20px 40px;
+}
+.wrap{width:100%;max-width:480px}
+header{text-align:center;margin-bottom:36px;animation:rise .6s ease both}
+.eye{width:74px;height:74px;margin:0 auto 18px;display:block}
+h1{font-size:1.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.tag{color:var(--mist);font-size:.95rem;margin-top:8px;font-weight:300;letter-spacing:.02em}
+.socials{display:flex;justify-content:center;gap:14px;margin-top:16px}
+.socials a{
+  color:var(--orchid);font-size:.8rem;letter-spacing:.08em;text-decoration:none;
+  border:1px solid var(--line);border-radius:99px;padding:7px 16px;transition:border-color .2s,color .2s;
+}
+.socials a:hover{border-color:var(--orchid);color:var(--bone)}
+.group{color:var(--mist);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  margin:30px 4px 12px;display:flex;align-items:center;gap:12px}
+.group::after{content:"";flex:1;height:1px;background:var(--line)}
+.card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;margin-bottom:12px;text-decoration:none;color:inherit;
+  transition:transform .18s ease,border-color .18s ease;
+  animation:rise .6s ease both;
+}
+.card:hover{transform:translateY(-2px);border-color:var(--accent,var(--violet))}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--accent,var(--violet));flex-shrink:0;
+  box-shadow:0 0 12px var(--accent,var(--violet))}
+.meta{flex:1;min-width:0}
+.name{font-weight:600;font-size:1.02rem;letter-spacing:.02em}
+.desc{color:var(--mist);font-size:.83rem;margin-top:3px;font-weight:300}
+.go{color:var(--mist);font-size:1.1rem;transition:color .18s,transform .18s}
+.card:hover .go{color:var(--accent,var(--orchid));transform:translateX(3px)}
+.hire{
+  border:1px solid var(--violet);
+  background:linear-gradient(135deg,#1B0F30,#150B24);
+}
+.hire .name{color:var(--orchid)}
+footer{color:#5E5477;font-size:.72rem;margin-top:34px;text-align:center;letter-spacing:.06em}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card:nth-of-type(1){animation-delay:.05s}.card:nth-of-type(2){animation-delay:.1s}
+.card:nth-of-type(3){animation-delay:.15s}.card:nth-of-type(4){animation-delay:.2s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="eye" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="url(#g)" stroke-width="2.5"/>
+      <ellipse cx="50" cy="50" rx="32" ry="18.5" fill="none" stroke="#EDE8F5" stroke-width="5"/>
+      <circle cx="50" cy="50" r="10.5" fill="url(#g)"/>
+      <circle cx="50" cy="50" r="4.6" fill="#0B0512"/>
+      <circle cx="47.4" cy="47.2" r="1.7" fill="#EDE8F5"/>
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#C264FF"/><stop offset="1" stop-color="#7B2FBE"/>
+      </linearGradient></defs>
+    </svg>
+    <h1>The Network</h1>
+    <p class="tag">Daily shorts for curious, slightly dark minds.</p>
+    <nav class="socials">
+      <a href="https://www.instagram.com/likennyypsych/">Instagram · Dark Mind</a>
+      <a href="https://www.instagram.com/likennyymind/">Instagram · Mind Decoded</a>
+    </nav>
+  </header>
+
+  <p class="group">Psychology</p>
+  <a class="card" style="--accent:#8B3DFF" href="https://www.youtube.com/@darkmind8790">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Dark Mind</span><br>
+    <span class="desc">Spot manipulation before it works on you.</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="card" style="--accent:#4C9BFF" href="https://www.youtube.com/@likennyy8727">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Mind Decoded</span><br>
+    <span class="desc">Why your brain does that.</span></span>
+    <span class="go">→</span>
+  </a>
+
+  <p class="group">Stories</p>
+  <a class="card" style="--accent:#FF8A4C" href="https://www.youtube.com/@likennyy90">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Reddit Tales</span><br>
+    <span class="desc">Real stories. Unreal endings.</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="card" style="--accent:#E5484D" href="https://www.youtube.com/@DailyTrueCime">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Daily True Crime</span><br>
+    <span class="desc">One case a day. The details you'd miss.</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="card" style="--accent:#3ED6C4" href="https://www.youtube.com/@signalelost">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Lost Signal</span><br>
+    <span class="desc">Signals, sightings, things unexplained.</span></span>
+    <span class="go">→</span>
+  </a>
+
+  <p class="group">Facts</p>
+  <a class="card" style="--accent:#6E9BF5" href="https://www.youtube.com/@StoicEdgePod">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Stoic Edge</span><br>
+    <span class="desc">Ancient discipline for modern chaos.</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="card" style="--accent:#C9A227" href="https://www.youtube.com/@HistoryUnlockedYT-g9y">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">History Unlocked</span><br>
+    <span class="desc">The parts they skip in school.</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="card" style="--accent:#D4A72C" href="https://www.youtube.com/@RVerdictFiles">
+    <span class="dot"></span>
+    <span class="meta"><span class="name">Verdict Files</span><br>
+    <span class="desc">Laws too strange to be fake.</span></span>
+    <span class="go">→</span>
+  </a>
+
+  <p class="group">Work with me</p>
+  <a class="card hire" href="https://www.fiverr.com/s/BR5e1v1">
+    <span class="dot" style="--accent:#C264FF"></span>
+    <span class="meta"><span class="name">Faceless Shorts for your channel</span><br>
+    <span class="desc">Script, AI voiceover, captions, SEO — built on real retention data.</span></span>
+    <span class="go">→</span>
+  </a>
+
+  <footer>© 2026 The Network</footer>
+</div>
+</body>
+</html>
